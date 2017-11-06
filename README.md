@@ -4,12 +4,12 @@ A simple recursive file crawler
 ## Arguments
 
 ```
--d --dir       The start directory path (required)
--t --file-type The file type to lookup (required)
--c --chunck    The chunck size to report to the server
--e --endpoint  The endpoint to report the enumerated files (required)
--f --force-uac Forces an UAC bypass
--v --verbose   Enables the verbose mode
+-d --dir        The start directory path (required)
+-t --file-type  The file type to lookup (required)
+-c --chunk-size The chunk size to report to the server
+-e --endpoint   The endpoint to report the enumerated files (required)
+-f --force-uac  Forces an UAC bypass
+-v --verbose    Enables the verbose mode
 ```
 
 ## Running the Crawler
@@ -20,7 +20,7 @@ python fatcrawler.py --dir C:\ --file-type *.txt --endpoint http://localhost --f
 
 ## The UAC Bypass
 
-The script will try to bypass the UAC if the the operational system is a "NT family" and the user has no administrative privileges.
+If the argument ```--force-uac``` is enabled, the script will try to bypass the UAC. This operation only occurs if the the operational system is a "NT family" and the user has no administrative privileges.
 It exploits the fodhelper.exe process to run the script with administrative privileges.
 
 ## POC
